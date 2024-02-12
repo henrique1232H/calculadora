@@ -7,3 +7,48 @@
 :root {
     font-size: 62.5%;
 }
+
+#app {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 100vh;
+}
+
+.calc {
+    width: min(20rem, 90%);
+    margin: 0 auto;
+    background: #ccc;
+    border-radius: 1rem;
+}
+
+.result {
+    background: #000;
+    color: #fff;
+    height: 10rem;
+    padding: 0 1rem;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items:  end;
+    justify-content: start;
+}
+
+.buttons {
+    padding: 1rem;
+    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    justify-items: center;
+}
+
+.buttons button {
+    padding: 1rem;
+}
+
+.buttons button:last-child {
+    grid-column: 1/5;
+    grid-row: 5/5;
+    width: 100%;
+}

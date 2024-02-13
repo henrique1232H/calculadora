@@ -1,10 +1,13 @@
 let valueNotNumber = [];
 let valueNumber = [];
 let copyFirstValue;
-let total = [];
+let numberChoosed = [];
 let operatorNumber;
 let stringFirstNumber = ``;
 let stringSecondNumber = ``;
+let historic = [];
+let total = []
+
 
 const responseNumber = document.querySelector(".number");
 const responseOperator = document.querySelector(".operator")
@@ -45,23 +48,27 @@ export const result = () => {
     const secondNumber = Number(stringSecondNumber)
 
     
-    total = [numberFirst, secondNumber];
+    numberChoosed = [numberFirst, secondNumber];
     
-    const result = operatorMatch(operatorNumber)
+    
+    const result = operatorMatch(operatorNumber);
     responseNumber.textContent = result.toFixed(2)
-
-    console.log(result)
-
+    
+    total = [numberChoosed, operatorNumber ,result];
+    historic = [total, ...historic];
+    
+    console.log(historic)
     
 }
 
 export const reset = () => {
     copyFirstValue = [];
     valueNotNumber = [];
-    total = [];
+    numberChoosed = [];
     stringFirstNumber = ``;
     stringSecondNumber = ``
     valueNumber = [];
+    total = [];
     responseNumber.textContent = ""
 }
 
@@ -69,19 +76,19 @@ export const reset = () => {
 const operatorMatch = (operatorNumber) => {
     
     if(operatorNumber === "+") {
-        return total[0] + total[1];
+        return numberChoosed[0] + numberChoosed[1];
     }
 
     if(operatorNumber === "-") {
-        return total[0] - total[1];
+        return numberChoosed[0] - numberChoosed[1];
     }
 
     if(operatorNumber === "*") {
-        return total[0] * total[1];
+        return numberChoosed[0] * numberChoosed[1];
     }
 
     if(operatorNumber === "÷") {
-        return total[0] / total[1];
+        return numberChoosed[0] / numberChoosed[1];
     }
 
 }

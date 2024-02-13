@@ -6,11 +6,14 @@ let operatorNumber;
 let stringFirstNumber = ``;
 let stringSecondNumber = ``;
 
+const responseNumber = document.querySelector(".number");
+const responseOperator = document.querySelector(".operator")
 
 export const operator = (value) => {
-    console.log(value)
     operatorNumber = value;
 
+    responseNumber.textContent = ""
+    responseOperator.textContent = value
 
     copyFirstValue = valueNotNumber.map(entries => entries);
     valueNotNumber = [];
@@ -19,8 +22,9 @@ export const operator = (value) => {
 
 export const number = (value) => {
 
+    responseOperator.textContent = ""
     valueNotNumber = [...valueNotNumber, value];
-    console.log(valueNotNumber)
+    responseNumber.textContent += `${value}`
 
 }
 
@@ -29,16 +33,14 @@ export const result = () => {
     
     
     copyFirstValue.forEach(entries => {
-        stringFirstNumber += `${entries}`
+        stringFirstNumber += entries
     })
     
     valueNotNumber.forEach(entries => {
         stringSecondNumber += `${entries}`
     })
 
-    console.log(stringFirstNumber)
-    console.log(stringSecondNumber)
-    
+
     const numberFirst = Number(stringFirstNumber);
     const secondNumber = Number(stringSecondNumber)
 
@@ -46,7 +48,9 @@ export const result = () => {
     total = [numberFirst, secondNumber];
     
     const result = operatorMatch(operatorNumber)
-    console.log(result);
+    responseNumber.textContent = result.toFixed(2)
+
+    console.log(result)
 
     
 }
@@ -57,27 +61,27 @@ export const reset = () => {
     total = [];
     stringFirstNumber = ``;
     stringSecondNumber = ``
-
     valueNumber = [];
+    responseNumber.textContent = ""
 }
 
 
 const operatorMatch = (operatorNumber) => {
     
     if(operatorNumber === "+") {
-        return total[0] + total[1]
+        return total[0] + total[1];
     }
 
     if(operatorNumber === "-") {
-        return total[0] - total[1]
+        return total[0] - total[1];
     }
 
     if(operatorNumber === "*") {
-        return total[0] * total[1]
+        return total[0] * total[1];
     }
 
     if(operatorNumber === "÷") {
-        return total[0] / total[1]
+        return total[0] / total[1];
     }
 
 }

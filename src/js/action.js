@@ -1,18 +1,15 @@
 let valueNotNumber = [];
 let arrayValueNumber = [];
-let copyValue;
 let operatorNumber;
 let stringNumber = ``;
-let NumberValue
-let valueString = []
-let historic = [];
-let total = []
+let NumberValue;
 let storeValues = []
-let teste = []
-
+let operatorArray = []
 
 const responseNumber = document.querySelector(".number");
 const responseOperator = document.querySelector(".operator")
+const responseResult = document.querySelector(".resultNumber")
+
 
 export const operator = (value) => {
 
@@ -21,30 +18,30 @@ export const operator = (value) => {
     responseNumber.textContent = ""
     responseOperator.textContent = value
 
-    storeValues = [ ...storeValues , NumberValue, operatorNumber];
+    storeValues = [NumberValue, operatorNumber,  ...storeValues];
 
     
-
-
+    
+    
     arrayValueNumber = [];
     valueNotNumber = []
 }
 
 
 export const number = (value) => {
-
+    
     stringNumber = ""
     responseOperator.textContent = ""
+    responseResult.textContent = ""
     
     valueNotNumber = [...valueNotNumber, value];
     valueNotNumber.forEach(entries => {
         NumberValue = Number(stringNumber += entries)
     })
 
-
+    operatorArray = [operatorNumber, ...operatorArray]
     
     arrayValueNumber = [NumberValue]
-    console.log(arrayValueNumber)
 
     responseNumber.textContent += value;
 
@@ -61,54 +58,55 @@ export const result = () => {
         NumberValue = Number(stringNumber += entries)
     })
 
+    const operatorArrayWithoutUndefined = operatorArray.filter(entries => entries !== undefined);
+
     storeValues = [...storeValues, NumberValue];
-    console.log(storeValues)
 
-    
-    // storeValues.forEach(entries => {
-    //     console.log(entries++)
-    // })
+    const result = operatorMatch(storeValues[1]);
 
+    responseNumber.textContent = "";
+    responseResult.textContent = result;
 
+    console.log(storeValues);
 
-    
-    // const result = operatorMatch(operatorNumber);
-    // responseNumber.textContent = result.toFixed(2)
-    
-    // total = [numberChoosed, operatorNumber , result];
-    // historic = [total, ...historic];
-    
-    // console.log(historic)
-    
+    reset()
 }
 
-// export const reset = () => {
-//     copyValue = [];
-//     valueNotNumber = [];
-//     stringNumber = ``;
-//     stringSecondNumber = ``
-//     valueNumber = [];
-//     total = [];
-//     responseNumber.textContent = "";
-// }
+const agrup = () => {
+    let array = []
+    for(let i = 0; i < storeValues.length; i += 3) {
+        array = [storeValues.slice(i, i + 3), ...array]
+    }
+    return array
+}
+
+export const reset = () => {
+    responseNumber.textContent = "";
 
 
-// const operatorMatch = (operatorNumber) => {
+    storeValues = []
+    operatorArray = []
+    arrayValueNumber = []
+    valueNotNumber = []
+}
+
+
+const operatorMatch = (operatorNumber) => {
     
-//     if(operatorNumber === "+") {
-//         return numberChoosed[0] + numberChoosed[1];
-//     }
+    if(operatorNumber === "+") {
+        return storeValues[0] + storeValues[2];
+    }
 
-//     if(operatorNumber === "-") {
-//         return numberChoosed[0] - numberChoosed[1];
-//     }
+    if(operatorNumber === "-") {
+        return storeValues[0] - storeValues[2];
+    }
 
-//     if(operatorNumber === "*") {
-//         return numberChoosed[0] * numberChoosed[1];
-//     }
+    if(operatorNumber === "*") {
+        return storeValues[0] * storeValues[2];
+    }
 
-//     if(operatorNumber === "÷") {
-//         return numberChoosed[0] / numberChoosed[1];
-//     }
+    if(operatorNumber === "÷") {
+        return storeValues[0] / storeValues[2];
+    }
 
-// }
+}
